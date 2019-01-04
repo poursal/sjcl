@@ -3,7 +3,7 @@
  * @param {bitArray|String} password  The password.
  * @param {bitArray|String} salt      The salt.  Should have lots of entropy.
  *
- * @param {Number} [N=16384] CPU/Memory cost parameter.
+ * @param {Number} [N=32768] CPU/Memory cost parameter.
  * @param {Number} [r=8]     Block size parameter.
  * @param {Number} [p=1]     Parallelization parameter.
  *
@@ -17,7 +17,7 @@ sjcl.misc.scrypt = function (password, salt, N, r, p, length, Prff) {
   var SIZE_MAX = Math.pow(2, 32) - 1,
       self = sjcl.misc.scrypt;
 
-  N = N || 16384;
+  N = N || 32768;
   r = r || 8;
   p = p || 1;
 

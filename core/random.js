@@ -14,7 +14,7 @@
  * <p>
  * This random number generator is a derivative of Ferguson and Schneier's
  * generator Fortuna.  It collects entropy from various events into several
- * pools, implemented by streaming SHA-256 instances.  It differs from
+ * pools, implemented by streaming SHA-512 instances.  It differs from
  * ordinary Fortuna in a few ways, though.
  * </p>
  *
@@ -46,7 +46,7 @@
 sjcl.prng = function(defaultParanoia) {
   
   /* private */
-  this._pools                   = [new sjcl.hash.sha256()];
+  this._pools                   = [new sjcl.hash.sha512()];
   this._poolEntropy             = [0];
   this._reseedCount             = 0;
   this._robins                  = {};
@@ -346,7 +346,7 @@ sjcl.prng.prototype = {
    * @private
    */
   _reseed: function (seedWords) {
-    this._key = sjcl.hash.sha256.hash(this._key.concat(seedWords));
+    this._key = sjcl.hash.sha512.hash(this._key.concat(seedWords)).slice(0, 8);
     this._cipher = new sjcl.cipher.aes(this._key);
     for (var i=0; i<4; i++) {
       this._counter[i] = this._counter[i]+1 | 0;
@@ -380,7 +380,7 @@ sjcl.prng.prototype = {
   
     /* if we used the last pool, push a new one onto the stack */
     if (this._reseedCount >= 1 << this._pools.length) {
-     this._pools.push(new sjcl.hash.sha256());
+     this._pools.push(new sjcl.hash.sha512());
      this._poolEntropy.push(0);
     }
   
@@ -476,7 +476,7 @@ sjcl.prng.prototype = {
 /** an instance for the prng.
 * @see sjcl.prng
 */
-sjcl.random = new sjcl.prng(6);
+sjcl.random = new sjcl.prng(8);
 
 (function(){
   // function for getting nodejs crypto module. catches and ignores errors.

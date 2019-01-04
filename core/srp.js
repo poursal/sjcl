@@ -34,7 +34,7 @@ sjcl.keyexchange.srp = {
 
   /**
    * Calculates SRP x.
-   *   x = SHA1(<salt> | SHA(<username> | ":" | <raw password>)) [RFC 2945]
+   *   x = SHA1(<salt> | SHA1(<username> | ":" | <raw password>)) [RFC 2945]
    * @param {String} I The username.
    * @param {String} P The password.
    * @param {Object} s A bitArray of the salt.

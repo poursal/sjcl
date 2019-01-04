@@ -8,10 +8,10 @@
 /** HMAC with the specified hash function.
  * @constructor
  * @param {bitArray} key the key for HMAC.
- * @param {Object} [Hash=sjcl.hash.sha256] The hash function to use.
+ * @param {Object} [Hash=sjcl.hash.sha512] The hash function to use.
  */
 sjcl.misc.hmac = function (key, Hash) {
-  this._hash = Hash = Hash || sjcl.hash.sha256;
+  this._hash = Hash = Hash || sjcl.hash.sha512;
   var exKey = [[],[]], i,
       bs = Hash.prototype.blockSize / 32;
   this._baseHash = [new Hash(), new Hash()];

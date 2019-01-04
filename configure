@@ -22,14 +22,14 @@ my %deps = ('aes'=>'sjcl',
             'ocb2'=>'bitArray,aes',
             'ocb2progressive'=>'ocb2',
             'gcm'=>'bitArray,aes',
-            'hmac'=>'sha256',
+            'hmac'=>'sha512',
             'pbkdf2'=>'hmac',
             'scrypt'=>'pbkdf2,codecBytes',
             'srp'=>'sha1,bn,bitArray',
             'bn'=>'bitArray,random',
             'ecc'=>'bn',
             'cbc'=>'bitArray,aes',
-            'random'=>'sha256,aes',
+            'random'=>'sha512,aes',
             'convenience'=>'ccm,pbkdf2,random,codecBase64',
             'ccmArrayBuffer'=>'bitArray,codecArrayBuffer',
             'codecArrayBuffer'=>'bitArray');
@@ -41,7 +41,7 @@ my %enabled = ();
 $enabled{$_} = 0 foreach (@targets);
 
 # by default, all but codecBytes, codecZ85, srp, bn
-$enabled{$_} = 1 foreach (qw/aes bitArray codecString codecHex codecBase32 codecBase64 sha256 ccm ocb2 gcm hmac pbkdf2 random convenience/);
+$enabled{$_} = 1 foreach (qw/aes bitArray codecString codecHex codecBase32 codecBase64 sha512 ccm hmac pbkdf2 scrypt random convenience/);
 
 # argument parsing
 while (my $arg = shift @ARGV) {
